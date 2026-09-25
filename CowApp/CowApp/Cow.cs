@@ -21,7 +21,7 @@ public class Cow : IEquatable<Cow> , IComparable<Cow>
         return Name == other.Name && Colour == other.Colour && Age == other.Age;
     }
 
-    public int CompareTo(Cow? other)
+    public override int GetHashCode()
     {
         return HashCode.Combine(Name, Colour, Age);
     }
