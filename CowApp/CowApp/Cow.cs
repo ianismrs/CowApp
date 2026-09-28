@@ -5,7 +5,17 @@ public class Cow : IEquatable<Cow> , IComparable<Cow>
     public string Name { get; set; }
     public string Colour { get; set; }
     public int Age { get; set; }
-    
+
+    public int KuhlLevel
+    {
+        get
+        {
+            return Age + Colour.Length;
+            
+        }
+        private set;
+    }
+
     public Cow(string name, string colour, int age)
     {
         Name = name;
