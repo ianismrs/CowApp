@@ -25,4 +25,16 @@ public class Cow : IEquatable<Cow> , IComparable<Cow>
     {
         return HashCode.Combine(Name, Colour, Age);
     }
+    
+
+    public int CompareTo(Cow? other)
+    {
+        if (ReferenceEquals(this, other)) return 0;
+        if (other is null) return 1;
+        var nameComparison = string.Compare(Name, other.Name, StringComparison.Ordinal);
+        if (nameComparison != 0) return nameComparison;
+        var colourComparison = string.Compare(Colour, other.Colour, StringComparison.Ordinal);
+        if (colourComparison != 0) return colourComparison;
+        return Name.CompareTo(other.Name);
+    }
 }
