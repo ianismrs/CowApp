@@ -4,17 +4,29 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Cow> cows = new List<Cow>()
+        List<Cow> cows = new List<Cow>();
+        if (File.Exists("input.txt"))
         {
-            new Cow("Milka", "lila", 4),
-            new Cow("Paula", "weiss", 6),
-            new Cow("Conny", "schwarz", 4),
-            new Cow("Berta", "weiss", 7),
-            new Cow("Mathias", "rosa", 4),
-            new Cow("Milka", "rosa", 4),
-            new Cow("Milka", "lila", 5),
-        };
-        Console.WriteLine();
+            using (StreamReader reader = new StreamReader("input.txt"))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    string[] parts = line.Split(';');
+                    if(parts.Length != 3) continue;
+                    string name = parts[0];
+                    string colour = parts[1];
+                    if (int.TryParse(parts[2], out int age) &&
+                        !string.IsNullOrWhiteSpace(name) &&
+                        !string.IsNullOrWhiteSpace(colour) &&
+                        age >= 0)
+                    {
+                        cows.Add(new Cow(name, colour, age));
+                    }
+                }
+            }
+        }
+
         Console.WriteLine("Every sort is ascending");
         Console.WriteLine("Sort by Names:");
         cows.Sort(new CompareByNames());
